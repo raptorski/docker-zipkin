@@ -6,6 +6,7 @@
 [![zipkin-mysql](https://quay.io/repository/openzipkin/zipkin-mysql/status "zipkin-mysql")](https://quay.io/repository/openzipkin/zipkin-mysql)
 [![zipkin-elasticsearch](https://quay.io/repository/openzipkin/zipkin-elasticsearch/status "zipkin-elasticsearch")](https://quay.io/repository/openzipkin/zipkin-elasticsearch)
 [![zipkin-kafka](https://quay.io/repository/openzipkin/zipkin-kafka/status "zipkin-kafka")](https://quay.io/repository/openzipkin/zipkin-kafka)
+[![zipkin-web](https://quay.io/repository/openzipkin/zipkin-web/status "zipkin-web")](https://quay.io/repository/openzipkin/zipkin-web)
 
 
 This repository contains the Docker build definition and release process for
@@ -121,6 +122,21 @@ To start the MySQL+Kafka configuration, run:
 
 By default, this assumes your Docker host IP is 192.168.99.100, which is what
 you would use for the broker IP when configuring application instrumentation.
+
+### Web
+
+The docker-compose configuration can be extended to host the UI on port 80
+using the `docker-compose-web.yml` file. That file employs
+[docker-compose overrides](https://docs.docker.com/compose/extends/#multiple-compose-files)
+to add an NGINX container and relevant settings.
+
+To start the NGINX configuration, run:
+
+    $ docker-compose -f docker-compose.yml -f docker-compose-web.yml up
+
+This container doubles as a skeleton for creating proxy configuration around
+Zipkin like authentication, dealing with CORS with zipkin-js apps, or
+terminating SSL. 
 
 ### Legacy
 
